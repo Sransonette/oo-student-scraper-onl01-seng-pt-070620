@@ -21,7 +21,18 @@ class Scraper
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
     hash = {} 
-      
+      social = doc.css(".vitals-container.social-icon-container a")
+      social.each do |element|
+        if element.attr('href').include?("twitter")
+          return_hash[:twitter] = element.attr('href')
+        elsif element.attr('href').include?("linkedin")
+          return_hash[:linkedin] = element.attr('href')
+        elsif element.attr('href').include?("github")
+          return_hash[:github] = element.attr('href')
+        elsif element.attr('href').end_with?("com/")
+          return_hash[:blog] = element.attr('href')
+        end
+      end
     
     
   end
