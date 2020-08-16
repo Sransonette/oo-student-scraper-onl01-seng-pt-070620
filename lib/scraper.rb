@@ -18,7 +18,7 @@ class Scraper
   
 
   def self.scrape_profile_page(profile_url)
-    html = open(index_url)
+    html = open(profile_url)
     doc = Nokogiri::HTML(html)
     hash = {} 
     
