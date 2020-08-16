@@ -21,6 +21,7 @@ class Scraper
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
     hash = {} 
+      
     
     
   end
