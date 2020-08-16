@@ -20,23 +20,24 @@ class Scraper
   def self.scrape_profile_page(profile_url)
     html = open(profile_url)
     doc = Nokogiri::HTML(html)
-    hash = {} 
-      social = doc.css(".vitals-container.social-icon-container a")
-      social.each do |element|
+    return_hash = {}
+
+      social = doc.css(".vitals-container .social-icon-container a")
+      social.each do |element| #iterate through each of the social elements and assign the keys if the item exists
         if element.attr('href').include?("twitter")
-          hash[:twitter] = element.attr('href')
+          return_hash[:twitter] = element.attr('href')
         elsif element.attr('href').include?("linkedin")
-          hash[:linkedin] = element.attr('href')
+          return_hash[:linkedin] = element.attr('href')
         elsif element.attr('href').include?("github")
-          hash[:github] = element.attr('href')
+          return_hash[:github] = element.attr('href')
         elsif element.attr('href').end_with?("com/")
-          hash[:blog] = element.attr('href')
+          return_hash[:blog] = element.attr('href')
         end
       end
-      hash[:profile_quote] = doc.css(".vitals-container.vitals-text-container .profile-quote").text
-      hash[:bio] = doc.css(".bio-block.details-block .bio-content.content-holder .description-holder p").text
+      return_hash[:profile_quote] = doc.css(".vitals-container .vitals-text-container .profile-quote").text
+      return_hash[:bio] = doc.css(".bio-block.details-block .bio-content.content-holder .description-holder p").text
 
-     hash
+  return_hash
   end
     
 
